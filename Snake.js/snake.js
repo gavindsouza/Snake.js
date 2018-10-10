@@ -1,25 +1,36 @@
 // Here's where the magic happens
 
-function init() {
-  let battlefield = document.getElementById('battlefield');
-  let ctx = battlefield.getContext('2d');
+trail = []; // all pixels of snake
 
-  let width = 350;
-  let height = 350;
-  let snakeSize = 10;
-  let score = 0;
-
-  let snake;
-  let food;
+let vx = 0;
+let vy = 0;
 
 
-  ctx.fillStyle = '#000000';
-  ctx.fillRect(0, 0, battlefield.height, battlefield.width); // doesnt work ?
+const battlefield = document.getElementById('battlefield');
+const start = document.getElementById('start');
 
-  document.addEventListener('keydown', keyDown);
+start.onclick = function () {
+  fruit();
+};
 
+const ctx = battlefield.getContext('2d');
+ctx.fillStyle = '#000000';
+ctx.fillRect(0, 0, battlefield.width, battlefield.height);
+fruit();
+document.addEventListener('keydown', keyDown);
+
+function fruit() {
+  x = Math.floor(Math.random() * (battlefield.height));
+  y = Math.floor(Math.random() * (battlefield.width));
+  ctx.fillStyle = '#ff0000';
+  ctx.fillRect(x, y, 10, 5);
 }
 
+function spawn() {
+  s_x = Math.floor(Math.random() * (battlefield.height - 6));
+  s_y = Math.floor(Math.random() * (battlefield.width - 6));
+  // draw snake
+}
 
 function keyDown(event) {
   // ascii codes of buttons
@@ -31,22 +42,21 @@ function keyDown(event) {
   // okay so using switch here was more convenient
   switch (event.keyCode) {
     case left:
-      // add direction velocity
+      //alert("left");
+      vx =
+        console.log(vx, vy);
       break;
     case up:
       // add direction velocity
+      console.log(vx, vy);
       break;
     case down:
       // add direction velocity
+      console.log(vx, vy);
       break;
     case right:
+      console.log(vx, vy);
       // add direction velocity
       break;
   }
-}
-
-
-function game() {
-  // snake curr positions
-  // apple curr positions ref: <script>document.write(Math.floor(Math.random()*100))</script>
 }
