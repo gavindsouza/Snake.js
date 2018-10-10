@@ -1,35 +1,53 @@
 // Here's where the magic happens
+START = true;
 
-trail = []; // all pixels of snake
+let trail = Array(); // all pixels of snake
 
+// direction of snake
 let vx = 0;
 let vy = 0;
 
+// head pixel of snake
+let snake_x;
+let snake_y;
+
+// pixel of fruit
+let fruit_x;
+let fruit_y;
 
 const battlefield = document.getElementById('battlefield');
 const start = document.getElementById('start');
 
-start.onclick = function () {
-  fruit();
-};
-
 const ctx = battlefield.getContext('2d');
 ctx.fillStyle = '#000000';
 ctx.fillRect(0, 0, battlefield.width, battlefield.height);
-fruit();
 document.addEventListener('keydown', keyDown);
 
+start.onclick = function () {
+  if (START) {
+    start.innerText = 'RESET';
+    START = false;
+  }
+  ctx.fillStyle = '#000000';
+  ctx.fillRect(0, 0, battlefield.width, battlefield.height);
+
+  spawn();
+  fruit();
+};
+
 function fruit() {
-  x = Math.floor(Math.random() * (battlefield.height));
-  y = Math.floor(Math.random() * (battlefield.width));
+  fruit_x = Math.floor(Math.random() * (battlefield.height));
+  fruit_y = Math.floor(Math.random() * (battlefield.width));
   ctx.fillStyle = '#ff0000';
-  ctx.fillRect(x, y, 10, 5);
+  ctx.fillRect(fruit_x, fruit_y, 10, 5);
 }
 
 function spawn() {
-  s_x = Math.floor(Math.random() * (battlefield.height - 6));
-  s_y = Math.floor(Math.random() * (battlefield.width - 6));
-  // draw snake
+  snake_x = Math.floor(Math.random() * (battlefield.height - 6));
+  snake_y = Math.floor(Math.random() * (battlefield.width - 6));
+  trail = trail.concat([1, 2, 3, 4, 5]); //colour entire trail
+  ctx.fillStyle = '#00ff00';
+  ctx.fillRect(snake_x, snake_y, trail.length, 5);
 }
 
 function keyDown(event) {
@@ -43,20 +61,27 @@ function keyDown(event) {
   switch (event.keyCode) {
     case left:
       //alert("left");
-      vx =
-        console.log(vx, vy);
+      vx = -1;
+      vy = 0;
+      console.log(vx, vy);
       break;
     case up:
       // add direction velocity
+      vx = 0;
+      vy = -1;
       console.log(vx, vy);
       break;
     case down:
       // add direction velocity
+      vx = 0;
+      vy = 1;
       console.log(vx, vy);
       break;
     case right:
-      console.log(vx, vy);
       // add direction velocity
+      vx = 1;
+      vy = 0;
+      console.log(vx, vy);
       break;
   }
 }
