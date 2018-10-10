@@ -6,20 +6,31 @@ let vx = 0;
 let vy = 0;
 
 
-battlefield = document.getElementById('battlefield');
-start = document.getElementById('start');
+const battlefield = document.getElementById('battlefield');
+const start = document.getElementById('start');
 
 start.onclick = function () {
-  console.log(Math.floor(Math.random() * (battlefield.height - 6)));
+  fruit();
 };
 
-ctx = battlefield.getContext('2d');
-ctx.fillRect(0, 0, battlefield.width, battlefield.height); // doesnt work ?
-
+const ctx = battlefield.getContext('2d');
 ctx.fillStyle = '#000000';
-
+ctx.fillRect(0, 0, battlefield.width, battlefield.height);
+fruit();
 document.addEventListener('keydown', keyDown);
 
+function fruit() {
+  x = Math.floor(Math.random() * (battlefield.height));
+  y = Math.floor(Math.random() * (battlefield.width));
+  ctx.fillStyle = '#ff0000';
+  ctx.fillRect(x, y, 10, 5);
+}
+
+function spawn() {
+  s_x = Math.floor(Math.random() * (battlefield.height - 6));
+  s_y = Math.floor(Math.random() * (battlefield.width - 6));
+  // draw snake
+}
 
 function keyDown(event) {
   // ascii codes of buttons
@@ -49,32 +60,3 @@ function keyDown(event) {
       break;
   }
 }
-
-/*
-function init() {
-  var battlefield = document.getElementById('battlefield');
-  //ctx = battlefield.getContext('2d');
-
-  battlefield.fillRect(0, 0, battlefield.height, battlefield.width); // doesnt work ?
-  battlefield.fillStyle = '#000000';
-
-    let width = 350;
-    let height = 350;
-
-    let snakeSize = 10;
-    let score = 0;
-
-
-    let snake;
-    let food;
-
-    document.addEventListener('keydown', keyDown);
-}
-*/
-
-/*
-function game() {
-  // snake curr positions
-  // apple curr positions ref: <script>document.write(Math.floor(Math.random()*100))</script>
-}
-*/
