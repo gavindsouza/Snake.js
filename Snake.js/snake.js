@@ -1,23 +1,19 @@
-// Here's where the magic happens
-START = true;
-
-let trail = Array(); // all pixels of snake || Currently size 5 in spawn()
-const box = 16;
-
-// direction of snake
-let vx = 0;
-let vy = 0;
-
-// head pixel of snake
-let snake_x;
-let snake_y;
-
-// pixel of fruit
-let fruit_x;
-let fruit_y;
-
 const battlefield = document.getElementById('battlefield');
 const start = document.getElementById('start');
+
+// Here's where the magic happens
+var snake = {};
+
+snake.START = true;
+snake.box = 16;
+
+snake.trail = Array(); // all pixels of snake || Currently size 5 in spawn()
+
+// direction of snake / head pixel of snake
+snake.current = {x: 0, y: 0};
+
+// pixel of fruit
+snake.fruit = {x: 0, y: 0};
 
 const ctx = battlefield.getContext('2d');
 ctx.fillStyle = '#000000';
@@ -27,28 +23,29 @@ document.addEventListener('keydown', keyDown);
 start.onclick = function () {
   if (START) {
     start.innerText = 'RESET';
-    START = false;
+    snake.START = false;
   }
   ctx.fillStyle = '#000000';
   ctx.fillRect(0, 0, battlefield.width, battlefield.height);
-  trail = Array();
+  snake.trail = Array();
   spawn();
   fruit();
 };
 
 function fruit() {
-  fruit_x = Math.floor(Math.random() * (battlefield.height - box));
-  fruit_y = Math.floor(Math.random() * (battlefield.width - box));
+  snake.fruit.x = Math.floor(Math.random() * (battlefield.height - snake.box));
+  snake.fruit.y = Math.floor(Math.random() * (battlefield.width - snake.box));
+
   ctx.fillStyle = '#ff0000';
-  ctx.fillRect(fruit_x, fruit_y, box, box);
+  ctx.fillRect(snake.fruit.x, snake.fruit.y, snake.box, snake.box);
 }
 
 function spawn() {
-  snake_x = Math.floor(Math.random() * (battlefield.height - 6));
-  snake_y = Math.floor(Math.random() * (battlefield.width - 6));
-  trail = trail.concat([1, 2, 3, 4, 5]); //colour entire trail
+  snake.current.x = Math.floor(Math.random() * (battlefield.height - 6));
+  snake.current.y = Math.floor(Math.random() * (battlefield.width - 6));
+  snake.trail = snake.trail.concat([1, 2, 3, 4, 5]); //colour entire trail
   ctx.fillStyle = '#00ff00';
-  ctx.fillRect(snake_x, snake_y, trail.length * box, box);
+  ctx.fillRect(snake.current.x, snake.current.y, snake.trail.length * snake.box, snake.box);
 }
 
 function keyDown(event) {
@@ -61,28 +58,29 @@ function keyDown(event) {
   // okay so using switch here was more convenient
   switch (event.keyCode) {
     case left:
-      //alert("left");
-      vx = -1;
-      vy = 0;
-      console.log(vx, vy);
+      snake.current = {x: -1, y: 0};
       break;
     case up:
-      // add direction velocity
-      vx = 0;
-      vy = -1;
-      console.log(vx, vy);
+      snake.current = {x: 0, y: -1};
       break;
     case down:
-      // add direction velocity
-      vx = 0;
-      vy = 1;
-      console.log(vx, vy);
+      snake.current = {x: 0, y: 1};
       break;
     case right:
-      // add direction velocity
-      vx = 1;
-      vy = 0;
-      console.log(vx, vy);
+      snake.current = {x: 1, y: 0};
       break;
   }
+  console.log(snake.current);
+}
+
+function changeDirection(current_direction) {
+  let directionOpposite = {
+    'left': 'right',
+    'right': 'left',
+    'up': 'down',
+    'down': 'up'
+  };
+  // if in the same direction, dont change
+  // elif in the opposite direction, dont change
+  // else change
 }
