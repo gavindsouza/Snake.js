@@ -21,7 +21,7 @@ ctx.fillRect(0, 0, battlefield.width, battlefield.height);
 document.addEventListener('keydown', keyDown);
 
 start.onclick = function () {
-  if (START) {
+  if (snake.START) {
     start.innerText = 'RESET';
     snake.START = false;
   }
